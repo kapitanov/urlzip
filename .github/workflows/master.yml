@@ -1,4 +1,4 @@
-name: Release
+name: master
 
 on:
   push:
@@ -9,13 +9,22 @@ jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.JS
+        uses: actions/setup-node@v1
         with:
           node-version: "22.x"
-      - run: yarn
-      - run: yarn build
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: Restore NPM dependencies
+        run: yarn
+      - name: Build application
+        run: yarn build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: "./dist"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
