@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "serve": "parcel serve src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build --public-url /urlzip src/index.html"
   },
   "browserslist": "> 0.25%",
   "engines": {
