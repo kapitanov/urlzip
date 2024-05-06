@@ -1,6 +1,4 @@
 async function main() {
-  console.log("Hello World");
-
   const href = window.location.search;
   if (href) {
     const { redirect } = await import("./redirect.js");
