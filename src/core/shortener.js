@@ -2,7 +2,6 @@ import * as smaz from "@remusao/smaz";
 import { Chars, BufferEncoder } from "bufferbase";
 
 const encoder = new BufferEncoder(Chars.Base64_URL_SAFE);
-const textDecoder = new TextDecoder();
 
 function rootUrl() {
   let url = window.location.href;
@@ -13,13 +12,12 @@ function rootUrl() {
   return url;
 }
 
-export async function shorten(url) {
-  const compressedBuffer = smaz.compress(url);
-  const compressesString = encoder.encode(compressedBuffer);
-  const resultUrl = `${rootUrl()}?${compressesString}`;
+export function shorten(url) {
+  const shortHref = encoder.encode(smaz.compress(url));
+  const resultUrl = `${rootUrl()}?${shortHref}`;
 
   const originalSize = url.length;
-  const compressedSize = compressedBuffer.length;
+  const compressedSize = resultUrl.length;
   const compressionRatio = (100 * compressedSize) / originalSize;
 
   console.log(`Shortened "${url}" to "${resultUrl}":`);
@@ -34,9 +32,7 @@ export async function shorten(url) {
   };
 }
 
-export async function unshorten(url) {
+export function unshorten(url) {
   url = url.substr(1);
-  const decompressedBuffer = smaz.decompress(url);
-  const decompressedString = textDecoder.decode(decompressedBuffer);
-  return decompressedString;
+  return smaz.decompress(encoder.decode(url));
 }

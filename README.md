@@ -5,6 +5,8 @@ But instead of actually shortening URLs, it just ZIPs them!
 
 Actually, it uses [SMAZ](https://github.com/antirez/smaz), not ZIP, but you get the idea.
 
+Have to admin, it's not very useful, but it was quite fun to make!
+
 ## How it works
 
 First, you need to shorten an URL:

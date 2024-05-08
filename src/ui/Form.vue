@@ -6,8 +6,8 @@ import { shorten } from '../core/shortener.js'
 
 const result = ref(null);
 
-const onSubmit = async (url) => {
-    result.value = await shorten(url);
+const onSubmit = (url) => {
+    result.value = shorten(url);
 };
 
 const onClear = () => {
