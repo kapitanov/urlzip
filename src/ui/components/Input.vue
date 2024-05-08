@@ -20,7 +20,7 @@ const editableInputClass = {
 };
 const readonlyInputClass = {
     'text-black': true,
-    'bg-gray-200': true,
+    'bg-stone-200': true,
     'border-gray-900': true,
 };
 const inputClass = computed(() => {

@@ -3,7 +3,7 @@
 This is a tiny project that mimics the behavior of a URL shortener.
 But instead of actually shortening URLs, it just ZIPs them!
 
-Actually, it uses Brotli, not ZIP, but you get the idea.
+Actually, it uses [SMAZ](https://github.com/antirez/smaz), not ZIP, but you get the idea.
 
 ## How it works
 

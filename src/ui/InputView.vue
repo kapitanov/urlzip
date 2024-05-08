@@ -36,14 +36,14 @@ const onSubmit = () => {
         <div class="flex flex-row gap-1 w-full">
             <Input v-model="url" type="text" placeholder="Enter an URL to shorten" required autofocus />
 
-            <div class="hidden md:block">
+            <div class="hidden lg:block">
                 <Button type="submit">
                     Go
                     <Icon icon="tabler:arrow-right" />
                 </Button>
             </div>
         </div>
-        <div class="md:hidden flex flex-row gap-1 w-full">
+        <div class="lg:hidden flex flex-row gap-1 w-full">
             <Button type="submit">
                 Go
                 <Icon icon="tabler:arrow-right" />

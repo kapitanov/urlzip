@@ -1,10 +1,8 @@
-import { compress, decompress } from "brotli-compress";
+import * as smaz from "@remusao/smaz";
 import { Chars, BufferEncoder } from "bufferbase";
 
-const customDictionary = Buffer.from("https.com/?#");
-
 const encoder = new BufferEncoder(Chars.Base64_URL_SAFE);
-const utf16Decoder = new TextDecoder("UTF-8");
+const textDecoder = new TextDecoder();
 
 function rootUrl() {
   let url = window.location.href;
@@ -16,32 +14,29 @@ function rootUrl() {
 }
 
 export async function shorten(url) {
-  const inputBuffer = Buffer.from(url);
-  const compressedBuffer = await compress(inputBuffer, { customDictionary });
+  const compressedBuffer = smaz.compress(url);
   const compressesString = encoder.encode(compressedBuffer);
   const resultUrl = `${rootUrl()}?${compressesString}`;
 
-  const compressionRatio = (100 * compressedBuffer.length) / inputBuffer.length;
+  const originalSize = url.length;
+  const compressedSize = compressedBuffer.length;
+  const compressionRatio = (100 * compressedSize) / originalSize;
+
   console.log(`Shortened "${url}" to "${resultUrl}":`);
-  console.log(
-    `  ${inputBuffer.length} bytes -> ${compressedBuffer.length} bytes`
-  );
+  console.log(`  ${originalSize} bytes -> ${compressedSize} bytes`);
   console.log(`  Compression ratio: ${compressionRatio.toFixed(2)}%`);
 
   return {
     url: resultUrl,
-    originalSize: inputBuffer.length,
-    compressedSize: compressedBuffer.length,
+    originalSize,
+    compressedSize: compressedSize,
     ratio: compressionRatio,
   };
 }
 
 export async function unshorten(url) {
   url = url.substr(1);
-  const compressedBuffer = encoder.decode(url);
-  const decompressedBuffer = await decompress(compressedBuffer, {
-    customDictionary,
-  });
-  const decompressedString = utf16Decoder.decode(decompressedBuffer);
+  const decompressedBuffer = smaz.decompress(url);
+  const decompressedString = textDecoder.decode(decompressedBuffer);
   return decompressedString;
 }
