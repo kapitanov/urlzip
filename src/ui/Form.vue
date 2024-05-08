@@ -4,17 +4,17 @@ import InputView from './InputView.vue';
 import ResultView from './ResultView.vue';
 import { shorten } from '../core/shortener.js'
 
-const shortUrl = ref('');
+const result = ref(null);
 
 const onSubmit = async (url) => {
-    shortUrl.value = await shorten(url);
+    result.value = await shorten(url);
 };
 
 const onClear = () => {
-    shortUrl.value = '';
+    result.value = null;
 };
 </script>
 <template>
-    <InputView v-if="!shortUrl" @input="onSubmit" />
-    <ResultView v-if="shortUrl" :url="shortUrl" @clear="onClear" />
+    <InputView v-if="!result" @input="onSubmit" />
+    <ResultView v-if="result" :result="result" @clear="onClear" />
 </template>

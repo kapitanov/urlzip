@@ -28,7 +28,12 @@ export async function shorten(url) {
   );
   console.log(`  Compression ratio: ${compressionRatio.toFixed(2)}%`);
 
-  return resultUrl;
+  return {
+    url: resultUrl,
+    originalSize: inputBuffer.length,
+    compressedSize: compressedBuffer.length,
+    ratio: compressionRatio,
+  };
 }
 
 export async function unshorten(url) {
