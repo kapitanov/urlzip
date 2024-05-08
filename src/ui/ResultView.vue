@@ -18,6 +18,14 @@ const onClear = () => {
         </label>
         <div class="flex flex-row gap-1 w-full">
             <Input type="url" :readonly="true" :value="props.url" />
+            <div class="hidden md:flex gap-1">
+                <CopyButton type="button" :value="props.url" />
+                <Button type="button" color="secondary" @click="onClear">
+                    <Icon icon="tabler:arrow-back-up" /> Try another URL
+                </Button>
+            </div>
+        </div>
+        <div class="md:hidden flex flex-row gap-1 w-full">
             <CopyButton type="button" :value="props.url" />
             <Button type="button" color="secondary" @click="onClear">
                 <Icon icon="tabler:arrow-back-up" /> Try another URL
